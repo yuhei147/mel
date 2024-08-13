@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS users(
 st.title('MEL/CDLヘルパーくん')
 # ページ選択
 page = st.sidebar.selectbox("ページを選択してください", ["入力フォーム", "データベース表示"])
-st.header("入力フォーム")
 if page == "入力フォーム":
+    st.header("入力フォーム")
     # MEL/CDLの選択肢をラジオボタンで表示
     option = st.radio("MEL/CDLを選択してください", ["MEL", "CDL"])
 
