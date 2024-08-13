@@ -81,16 +81,23 @@ if page == "入力フォーム":
 
 elif page == "データベース表示":
     st.header("データベースの内容")
-    
+
+    # 検索バーを作成
+    search_query = st.text_input("検索キーワードを入力してください:")
+
     # データベースからデータを取得して表示（新しい順に並べ替え）
     cur.execute('SELECT * FROM users ORDER BY id DESC')
     rows = cur.fetchall()
+
+    # 検索クエリが入力されている場合、フィルタリングを行う
+    if search_query:
+        rows = [row for row in rows if search_query.lower() in (row[1].lower() + row[2].lower() + row[3].lower())]
 
     if rows:
         for row in rows:
             st.markdown(f"<div style='font-size:20px;'>ID: {row[0]}, MEL/CDL: {row[1]}, OPS: {row[2]}, ITEM: {row[3].replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
     else:
-        st.write("データベースに保存されているデータはありません。")
+        st.write("検索結果に一致するデータはありません。")
 
 # データベース接続を閉じる
 conn.close()
