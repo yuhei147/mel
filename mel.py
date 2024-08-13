@@ -79,7 +79,7 @@ if page == "入力フォーム":
                         file_name='saved_memo.txt',
                         mime='text/plain')
 
-elif page == "データベース":
+elif page == "データベース表示":
     st.header("データベースの内容")
     
     # データベースからデータを取得して表示（新しい順に並べ替え）
