@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users(
 )
 ''')
 
+st.title('MEL/CDLヘルパーくん')
 # ページ選択
 page = st.sidebar.selectbox("ページを選択してください", ["入力フォーム", "データベース表示"])
 
@@ -24,10 +25,10 @@ if page == "入力フォーム":
 
     # 入力フォーム
     if option == "MEL":
-        input_value = st.text_input("MEL番号:", "")
+        input_value = st.text_input("MEL番号", "")
 
     elif option == "CDL":
-        input_value = st.text_input("CDL番号:", "CDL")
+        input_value = st.text_input("CDL番号", "CDL")
 
         calc_option = st.radio("機種を選択してください", ["B6", "B3"])
 
@@ -43,8 +44,8 @@ if page == "入力フォーム":
             st.write(f"計算結果: {result}")
             st.write("計算式：Weight Reduction/ 100 * 0.45")
 
-    # ops の入力フォーム
-    ops = st.text_input("OPS:")
+    # ops の入力フォーム（改行可能）
+    ops = st.text_area("OPS")
     if "below" in ops.lower() or "use" in ops.lower():
         st.warning("ALTNも確認しましたか？")
 
@@ -65,19 +66,6 @@ if page == "入力フォーム":
         conn.commit()
         st.success('データベースに保存されました。')
 
-    # メモのダウンロード
-    if st.button('ダウンロード'):
-        # SQLiteデータベースからデータを取得
-        cur.execute('SELECT * FROM users ORDER BY id DESC')
-        saved_data = cur.fetchall()
-        
-        # ダウンロード用のテキストファイルを生成
-        saved_text = "\n".join([f"ID: {row[0]}, MEL/CDL: {row[1]}, OPS: {row[2]}, ITEM: {row[3]}" for row in saved_data])
-        
-        st.download_button(label="ダウンロード",
-                        data=saved_text,
-                        file_name='saved_memo.txt',
-                        mime='text/plain')
 
 elif page == "データベース表示":
     st.header("データベースの内容")
@@ -95,9 +83,11 @@ elif page == "データベース表示":
 
     if rows:
         for row in rows:
-            st.markdown(f"<div style='font-size:20px;'>ID: {row[0]}, MEL/CDL: {row[1]}, OPS: {row[2]}, ITEM: {row[3].replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:20px;'>ID: {row[0]}, 番号: {row[1]}, OPS: {row[2]}, ITEM: {row[3]}</div>", unsafe_allow_html=True)
     else:
         st.write("検索結果に一致するデータはありません。")
 
 # データベース接続を閉じる
 conn.close()
+
+
