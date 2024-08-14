@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users(
 )
 ''')
 
-st.title('MEL/CDLヘルパーくん')
+st.title('MELCDLヘルパーくん')
 # ページ選択
 page = st.sidebar.selectbox("ページを選択してください", ["入力フォーム", "データベース表示"])
 if page == "入力フォーム":
