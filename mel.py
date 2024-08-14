@@ -37,12 +37,12 @@ if page == "入力フォーム":
         # 計算結果を表示
         if calc_option == "B6":
             result = input_value_1 / 1000 * 0.45
-            st.write(f"計算結果: {result}")
+            st.write(f"計算結果: {result}%")
             st.write("計算式：Weight Reduction/ 1000 * 0.45")
         elif calc_option == "B3":
             result = input_value_1 / 100 * 0.15
-            st.write(f"計算結果: {result}")
-            st.write("計算式：Weight Reduction/ 100 * 0.45")
+            st.write(f"計算結果: {result}%")
+            st.write("計算式：Weight Reduction/ 100 * 0.15")
 
     # ops の入力フォーム（改行可能）
     ops = st.text_area("OPS")
