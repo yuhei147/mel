@@ -1,5 +1,6 @@
 import sqlite3
 import streamlit as st
+import numpy as np
 
 # データベースに接続（なければ作成される）
 conn = sqlite3.connect('sample.db')
